@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veloura Studio | Premium Photography</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI',sans-serif;
+    }
+
+    :root{
+      --bg:#0b0b0b;
+      --surface:#121212;
+      --surface-2:#1a1a1a;
+      --line:rgba(255,255,255,0.08);
+      --text:#f7f7f7;
+      --muted:rgba(255,255,255,0.68);
+      --accent:#d7b26d;
+      --accent-soft:rgba(215,178,109,0.16);
+      --white-card:#f3efe8;
+      --dark-card:#171717;
+      --radius:32px;
+      --shadow:0 24px 70px rgba(0,0,0,0.34);
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top, rgba(215,178,109,0.08), transparent 24%),
+        linear-gradient(180deg, #101010 0%, #080808 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .page-shell{
+      width:min(1180px, calc(100% - 32px));
+      margin:18px auto;
+      background:var(--bg);
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:36px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .section{
+      padding:28px;
+    }
+
+    .topbar{
+      padding:22px 28px 0;
+    }
+
+    .nav{
+      background:#111;
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:999px;
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:0 22px;
+    }
+
+    .nav-links,
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:22px;
+    }
+
+    .nav a{
+      font-size:14px;
+      color:rgba(255,255,255,0.82);
+      transition:0.25s ease;
+    }
+
+    .nav a:hover{
+      color:var(--accent);
+    }
+
+    .brand{
+      font-size:24px;
+      font-weight:700;
+      letter-spacing:-0.8px;
+      color:white;
+    }
+
+    .brand span{
+      color:var(--accent);
+    }
+
+    .nav-btn{
+      background:var(--accent);
+      color:#111 !important;
+      padding:12px 18px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .hero-card{
+      background:var(--white-card);
+      color:#141414;
+      margin:16px 28px 0;
+      border-radius:0 0 42px 42px;
+      padding:42px 42px 34px;
+      position:relative;
+      overflow:hidden;
+      min-height:620px;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      width:320px;
+      height:320px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(215,178,109,0.18), transparent 70%);
+      top:60px;
+      right:120px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:32px;
+      align-items:center;
+      height:100%;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:3px;
+      color:#6b6254;
+      margin-bottom:18px;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:32px;
+      height:1px;
+      background:#8d806c;
+    }
+
+    .hero-copy h1{
+      font-size:clamp(42px, 6vw, 76px);
+      line-height:0.95;
+      letter-spacing:-2px;
+      margin-bottom:18px;
+      max-width:620px;
+    }
+
+    .hero-copy p{
+      font-size:17px;
+      line-height:1.8;
+      color:#5b5349;
+      max-width:520px;
+      margin-bottom:28px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:30px;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      font-weight:700;
+      transition:0.25s ease;
+    }
+
+    .btn-primary{
+      background:#111;
+      color:white;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-secondary{
+      border:1px solid rgba(20,20,20,0.12);
+      color:#141414;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      max-width:620px;
+    }
+
+    .stat-box{
+      background:rgba(255,255,255,0.56);
+      border:1px solid rgba(20,20,20,0.07);
+      border-radius:20px;
+      padding:16px 18px;
+    }
+
+    .stat-box strong{
+      display:block;
+      font-size:28px;
+      margin-bottom:4px;
+    }
+
+    .stat-box span{
+      color:#655d52;
+      font-size:13px;
+    }
+
+    .hero-visual{
+      position:relative;
+      min-height:480px;
+    }
+
+    .visual-main{
+      position:absolute;
+      inset:40px 40px 0 20px;
+      border-radius:34px;
+      overflow:hidden;
+      background:#ddd;
+      box-shadow:0 20px 55px rgba(0,0,0,0.16);
+    }
+
+    .visual-main img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .floating-card{
+      position:absolute;
+      background:rgba(255,255,255,0.78);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(20,20,20,0.08);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:0 18px 45px rgba(0,0,0,0.16);
+    }
+
+    .floating-card.top{
+      top:0;
+      right:0;
+      width:220px;
+    }
+
+    .floating-card.bottom{
+      left:0;
+      bottom:18px;
+      width:240px;
+    }
+
+    .floating-card h4{
+      font-size:15px;
+      margin-bottom:6px;
+    }
+
+    .floating-card p{
+      font-size:13px;
+      line-height:1.7;
+      color:#665f55;
+    }
+
+    .metrics-band{
+      padding:18px 28px 0;
+    }
+
+    .metrics{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid var(--line);
+      border-radius:28px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:0;
+      overflow:hidden;
+    }
+
+    .metric{
+      padding:22px 18px;
+      text-align:center;
+      border-right:1px solid rgba(255,255,255,0.06);
+    }
+
+    .metric:last-child{
+      border-right:none;
+    }
+
+    .metric strong{
+      display:block;
+      font-size:30px;
+      color:var(--accent);
+      margin-bottom:5px;
+    }
+
+    .metric span{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .dark-section{
+      padding:54px 28px 0;
+    }
+
+    .split-head{
+      display:grid;
+      grid-template-columns:0.9fr 1.1fr;
+      gap:26px;
+      align-items:end;
+      margin-bottom:26px;
+    }
+
+    .split-head h2{
+      font-size:clamp(30px, 4vw, 52px);
+      line-height:0.95;
+      letter-spacing:-1.5px;
+    }
+
+    .split-head p{
+      color:var(--muted);
+      max-width:520px;
+      line-height:1.8;
+    }
+
+    .featured-grid{
+      display:grid;
+      grid-template-columns:1.15fr 0.85fr;
+      gap:18px;
+    }
+
+    .gallery-card{
+      background:var(--dark-card);
+      border:1px solid var(--line);
+      border-radius:30px;
+      overflow:hidden;
+      min-height:420px;
+      position:relative;
+    }
+
+    .gallery-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform 0.45s ease;
+      filter:saturate(0.95);
+    }
+
+    .gallery-card:hover img{
+      transform:scale(1.04);
+    }
+
+    .gallery-overlay{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      background:rgba(10,10,10,0.68);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:14px 16px;
+      backdrop-filter:blur(10px);
+    }
+
+    .gallery-overlay strong{
+      display:block;
+      font-size:16px;
+      margin-bottom:2px;
+    }
+
+    .gallery-overlay span{
+      font-size:13px;
+      color:rgba(255,255,255,0.72);
+    }
+
+    .stacked-grid{
+      display:grid;
+      grid-template-rows:1fr 1fr;
+      gap:18px;
+    }
+
+    .services-panel{
+      margin-top:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:26px;
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .services-copy h2{
+      font-size:clamp(28px, 4vw, 46px);
+      line-height:0.95;
+      letter-spacing:-1.2px;
+      margin-bottom:10px;
+    }
+
+    .services-copy p{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:420px;
+      margin-bottom:18px;
+    }
+
+    .service-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .service-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 18px;
+      background:rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:18px;
+      transition:0.25s ease;
+    }
+
+    .service-item:hover{
+      border-color:rgba(215,178,109,0.36);
+      transform:translateX(4px);
+    }
+
+    .service-item strong{
+      font-size:15px;
+    }
+
+    .service-item span{
+      color:var(--accent);
+      font-size:18px;
+    }
+
+    .services-visual{
+      background:#161616;
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:18px;
+    }
+
+    .services-visual img,
+    .placeholder-box{
+      width:100%;
+      height:340px;
+      border-radius:20px;
+      object-fit:cover;
+      background:
+        linear-gradient(135deg, rgba(215,178,109,0.20), rgba(255,255,255,0.03)),
+        #222;
+    }
+
+    .tagline{
+      padding:38px 28px 0;
+      text-align:center;
+    }
+
+    .tagline h2{
+      font-size:clamp(34px, 5vw, 62px);
+      line-height:1;
+      letter-spacing:-1.5px;
+    }
+
+    .tagline span{
+      color:var(--accent);
+      margin:0 10px;
+    }
+
+    .testimonials{
+      padding:38px 28px 0;
+    }
+
+    .testimonial-wrap{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .testimonial-card{
+      background:#f1ede6;
+      color:#181818;
+      border-radius:26px;
+      padding:24px;
+      min-height:220px;
+      border:1px solid rgba(20,20,20,0.05);
+    }
+
+    .testimonial-card p{
+      color:#564f46;
+      line-height:1.85;
+      margin-bottom:18px;
+    }
+
+    .testimonial-card strong{
+      display:block;
+      font-size:16px;
+      margin-bottom:4px;
+    }
+
+    .testimonial-card span{
+      color:#736b60;
+      font-size:13px;
+    }
+
+    .cta-section{
+      padding:38px 28px 28px;
+    }
+
+    .cta-card{
+      background:linear-gradient(135deg, rgba(215,178,109,0.20), rgba(255,255,255,0.02)), #141414;
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:30px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:20px;
+      align-items:center;
+    }
+
+    .cta-card h2{
+      font-size:clamp(28px, 4vw, 46px);
+      line-height:0.96;
+      letter-spacing:-1px;
+      margin-bottom:10px;
+    }
+
+    .cta-card p{
+      color:var(--muted);
+      max-width:560px;
+      line-height:1.8;
+    }
+
+    .cta-card .btn-primary{
+      background:var(--accent);
+      color:#111;
+      padding:15px 24px;
+    }
+
+    .footer{
+      padding:0 28px 28px;
+    }
+
+    .footer-bar{
+      background:#d7b26d;
+      color:#151515;
+      border-radius:28px;
+      padding:22px 26px;
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .footer-brand{
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:-1px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      font-weight:600;
+    }
+
+    .footer-copy{
+      font-size:13px;
+      opacity:0.72;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(28px);
+      transition:opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:980px){
+      .nav{
+        border-radius:28px;
+        padding:18px;
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+
+      .nav-links,
+      .nav-actions{
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+
+      .hero-card{
+        padding:34px 24px 24px;
+        min-height:auto;
+      }
+
+      .hero-grid,
+      .split-head,
+      .featured-grid,
+      .services-panel,
+      .cta-card,
+      .footer-bar{
+        grid-template-columns:1fr;
+      }
+
+      .hero-stats,
+      .metrics,
+      .testimonial-wrap{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .visual-main{
+        position:relative;
+        inset:auto;
+        height:420px;
+      }
+
+      .floating-card.top{
+        right:10px;
+        top:10px;
+      }
+
+      .floating-card.bottom{
+        left:10px;
+        bottom:10px;
+      }
+    }
+
+    @media(max-width:680px){
+      .page-shell{
+        width:min(100% - 16px, 100%);
+        margin:8px auto;
+        border-radius:24px;
+      }
+
+      .topbar{
+        padding:14px 14px 0;
+      }
+
+      .section,
+      .dark-section,
+      .metrics-band,
+      .tagline,
+      .testimonials,
+      .cta-section,
+      .footer{
+        padding-left:14px;
+        padding-right:14px;
+      }
+
+      .hero-card{
+        margin:12px 14px 0;
+        border-radius:0 0 24px 24px;
+      }
+
+      .hero-stats,
+      .metrics,
+      .testimonial-wrap{
+        grid-template-columns:1fr;
+      }
+
+      .nav{
+        min-height:auto;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+
+      .btn-primary,
+      .btn-secondary{
+        width:100%;
+      }
+
+      .floating-card{
+        position:relative;
+        width:100% !important;
+        top:auto !important;
+        right:auto !important;
+        left:auto !important;
+        bottom:auto !important;
+        margin-top:12px;
+      }
+
+      .hero-visual{
+        min-height:auto;
+      }
+
+      .footer-links{
+        justify-content:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="topbar">
+      <nav class="nav">
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+        </div>
+
+        <a href="#" class="brand">Veloura<span> Studio</span></a>
+
+        <div class="nav-actions">
+          <a href="#portfolio">Portfolio</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#contact" class="nav-btn">Book Session</a>
+        </div>
+      </nav>
+    </div>
+
+    <section class="hero-card reveal">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Wedding • Maternity • Portrait • Commercial</div>
+          <h1>Capturing Moments That Feel Timeless.</h1>
+          <p>
+            A premium photography studio demo designed for emotional storytelling, elegant portfolios,
+            and high-converting booking flow. Perfect for wedding, maternity, portrait, and product shoots.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#portfolio" class="btn-primary">View Portfolio</a>
+            <a href="#contact" class="btn-secondary">Book a Session</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-box">
+              <strong>250+</strong>
+              <span>Sessions Captured</span>
+            </div>
+            <div class="stat-box">
+              <strong>8+</strong>
+              <span>Years Experience</span>
+            </div>
+            <div class="stat-box">
+              <strong>4.9★</strong>
+              <span>Client Rating</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-main">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80" alt="Studio Hero" />
+          </div>
+
+          <div class="floating-card top">
+            <h4>Featured Storytelling</h4>
+            <p>Luxury wedding frames, editorial portraits, and emotional maternity moments.</p>
+          </div>
+
+          <div class="floating-card bottom">
+            <h4>Fast Booking Flow</h4>
+            <p>Built to help visitors explore your work and enquire quickly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics-band reveal">
+      <div class="metrics">
+        <div class="metric">
+          <strong>1200+</strong>
+          <span>Edited Photos Delivered</span>
+        </div>
+        <div class="metric">
+          <strong>90+</strong>
+          <span>Wedding Stories</span>
+        </div>
+        <div class="metric">
+          <strong>300+</strong>
+          <span>Portrait Sessions</span>
+        </div>
+        <div class="metric">
+          <strong>24/7</strong>
+          <span>Enquiry Access</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" id="portfolio">
+      <div class="split-head reveal">
+        <h2>Turning Real Moments Into Visual Memories.</h2>
+        <p>
+          This homepage is designed to sell trust fast. Big imagery, elegant spacing, premium contrast,
+          and clear booking cues make it ideal for photo studios pitching higher-value sessions.
+        </p>
+      </div>
+
+      <div class="featured-grid reveal">
+        <a href="#" class="gallery-card">
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80" alt="Wedding gallery" />
+          <div class="gallery-overlay">
+            <strong>Wedding Stories</strong>
+            <span>Cinematic, emotional, and timeless coverage</span>
+          </div>
+        </a>
+
+        <div class="stacked-grid">
+          <a href="#" class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="Portrait gallery" />
+            <div class="gallery-overlay">
+              <strong>Portrait Sessions</strong>
+              <span>Editorial mood with soft natural direction</span>
+            </div>
+          </a>
+
+          <a href="#" class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=80" alt="Maternity gallery" />
+            <div class="gallery-overlay">
+              <strong>Maternity Frames</strong>
+              <span>Graceful compositions and intimate storytelling</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="services-panel reveal" id="services">
+        <div class="services-copy">
+          <div class="eyebrow">Studio Services</div>
+          <h2>Photography Crafted For Every Beautiful Stage.</h2>
+          <p>
+            Use this section to preview your most valuable services and lead visitors toward deeper pages later.
+          </p>
+
+          <div class="service-list">
+            <a href="#" class="service-item">
+              <strong>Wedding Photography</strong>
+              <span>→</span>
+            </a>
+            <a href="#" class="service-item">
+              <strong>Pre-Wedding Shoots</strong>
+              <span>→</span>
+            </a>
+            <a href="#" class="service-item">
+              <strong>Maternity Sessions</strong>
+              <span>→</span>
+            </a>
+            <a href="#" class="service-item">
+              <strong>Product Photography</strong>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="services-visual">
+          <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80" alt="Studio service preview" />
+        </div>
+      </div>
+    </section>
+
+    <section class="tagline reveal" id="about">
+      <h2>Capture <span>•</span> Feel <span>•</span> Remember</h2>
+    </section>
+
+    <section class="testimonials" id="reviews">
+      <div class="testimonial-wrap reveal">
+        <div class="testimonial-card">
+          <p>
+            “The photos felt cinematic and emotional without looking overdone. Every frame looked premium.”
+          </p>
+          <strong>Rhea & Aarav</strong>
+          <span>Wedding Clients</span>
+        </div>
+
+        <div class="testimonial-card">
+          <p>
+            “The studio made the whole session feel effortless. The final portraits looked polished and natural.”
+          </p>
+          <strong>Megha S.</strong>
+          <span>Maternity Session</span>
+        </div>
+
+        <div class="testimonial-card">
+          <p>
+            “We needed product photos that looked elevated and clean. The results were exactly what our brand needed.”
+          </p>
+          <strong>House of Sol</strong>
+          <span>Commercial Client</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+      <div class="cta-card reveal">
+        <div>
+          <h2>Ready To Create Something Beautiful?</h2>
+          <p>
+            This CTA is where the demo converts. Connect it later to WhatsApp, enquiry form, or booking flow.
+          </p>
+        </div>
+
+        <a href="#" class="btn-primary">Book Your Session</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-bar reveal">
+        <div class="footer-brand">Veloura Studio</div>
+        <div class="footer-links">
+          <a href="#">About</a>
+          <a href="#">Portfolio</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-copy">Demo homepage for photo studio outreach</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
