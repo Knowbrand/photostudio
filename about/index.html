@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Creator's Hub Studio</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI',sans-serif;
+    }
+
+    :root{
+      --bg:#0a0a0a;
+      --panel:#131313;
+      --panel-soft:#1a1a1a;
+      --line:rgba(255,255,255,0.08);
+      --text:#f7f4ef;
+      --muted:rgba(255,255,255,0.7);
+      --accent:#d87b1f;
+      --accent-soft:rgba(216,123,31,0.14);
+      --cream:#f3eee5;
+      --shadow:0 28px 80px rgba(0,0,0,0.34);
+    }
+
+    html{scroll-behavior:smooth;}
+
+    body{
+      background:
+        radial-gradient(circle at top, rgba(216,123,31,0.14), transparent 24%),
+        linear-gradient(180deg, #111 0%, #070707 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    img{
+      display:block;
+      width:100%;
+      object-fit:cover;
+    }
+
+    .page{
+      padding:18px;
+    }
+
+    .nav{
+      background:rgba(10,10,10,0.94);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:28px;
+      padding:16px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      box-shadow:var(--shadow);
+      position:sticky;
+      top:18px;
+      z-index:10;
+      backdrop-filter:blur(12px);
+    }
+
+    .brand{
+      font-size:24px;
+      font-weight:700;
+      letter-spacing:-0.9px;
+    }
+
+    .brand span{
+      color:var(--accent);
+    }
+
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.03);
+      color:var(--text);
+      font-weight:600;
+      transition:0.25s ease;
+      cursor:pointer;
+    }
+
+    .back-btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(216,123,31,0.35);
+      color:var(--accent);
+    }
+
+    .about-shell{
+      max-width:1120px;
+      margin:18px auto 0;
+      background:linear-gradient(180deg, #191919 0%, #111 100%);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:34px;
+      padding:34px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .about-shell::before,
+    .about-shell::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .about-shell::before{
+      width:480px;
+      height:480px;
+      background:radial-gradient(circle, rgba(216,123,31,0.1), transparent 66%);
+      top:-120px;
+      right:-120px;
+    }
+
+    .about-shell::after{
+      width:420px;
+      height:420px;
+      background:radial-gradient(circle, rgba(255,255,255,0.04), transparent 68%);
+      bottom:-180px;
+      left:-120px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:22px;
+      margin-bottom:22px;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero-left{
+      min-height:420px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:16px;
+      align-items:start;
+      border:1px solid var(--line);
+      background:linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius:28px;
+      padding:26px;
+    }
+
+    .hero-title{
+      font-size:clamp(84px, 12vw, 170px);
+      line-height:0.84;
+      letter-spacing:-5px;
+      text-transform:uppercase;
+    }
+
+    .hero-title span{
+      color:var(--accent);
+      display:block;
+      text-align:right;
+      margin-top:6px;
+    }
+
+    .hero-copy{
+      padding-top:12px;
+      max-width:320px;
+    }
+
+    .eyebrow{
+      color:rgba(255,255,255,0.5);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:12px;
+      margin-bottom:14px;
+    }
+
+    .hero-copy p{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:14px;
+      margin-bottom:14px;
+    }
+
+    .hero-card-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:999px;
+      min-width:150px;
+      font-weight:700;
+      background:transparent;
+      transition:0.25s ease;
+    }
+
+    .hero-card-button:hover{
+      color:var(--accent);
+      border-color:rgba(216,123,31,0.35);
+    }
+
+    .hero-side{
+      display:grid;
+      grid-template-rows:1fr 1fr;
+      gap:16px;
+    }
+
+    .side-card{
+      border-radius:28px;
+      overflow:hidden;
+      min-height:202px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      position:relative;
+    }
+
+    .side-card img{
+      height:100%;
+    }
+
+    .side-overlay{
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      background:rgba(10,10,10,0.68);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:12px 14px;
+      backdrop-filter:blur(10px);
+    }
+
+    .side-overlay strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:15px;
+    }
+
+    .side-overlay span{
+      color:rgba(255,255,255,0.72);
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    .statement{
+      display:grid;
+      grid-template-columns:0.32fr 0.68fr;
+      gap:16px;
+      margin-bottom:22px;
+      position:relative;
+      z-index:1;
+    }
+
+    .statement-index,
+    .statement-copy{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      padding:24px;
+    }
+
+    .statement-index small{
+      color:rgba(255,255,255,0.45);
+      display:block;
+      margin-bottom:40px;
+    }
+
+    .statement-index strong{
+      display:block;
+      font-size:68px;
+      line-height:0.9;
+    }
+
+    .statement-index span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .statement-copy h2{
+      font-size:clamp(34px, 5vw, 58px);
+      line-height:1.02;
+      letter-spacing:-1.8px;
+      max-width:780px;
+    }
+
+    .statement-copy .accent{
+      color:var(--accent);
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:16px;
+      margin-bottom:22px;
+      position:relative;
+      z-index:1;
+    }
+
+    .stat-card{
+      min-height:220px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:24px;
+      background:linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .stat-card.light{
+      background:var(--cream);
+      color:#121212;
+    }
+
+    .stat-card small{
+      color:rgba(255,255,255,0.45);
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .stat-card.light small{
+      color:rgba(18,18,18,0.48);
+    }
+
+    .stat-card strong{
+      font-size:72px;
+      line-height:0.9;
+      letter-spacing:-2px;
+    }
+
+    .stat-card span{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .stat-card.light span{
+      color:rgba(18,18,18,0.72);
+    }
+
+    .brands-panel,
+    .awards-panel{
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:24px;
+      background:linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      position:relative;
+      z-index:1;
+    }
+
+    .brands-panel{
+      margin-bottom:22px;
+    }
+
+    .brands-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .brand-chip,
+    .brand-highlight{
+      min-height:86px;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:12px;
+    }
+
+    .brand-chip{
+      color:rgba(255,255,255,0.8);
+      background:rgba(255,255,255,0.02);
+      font-weight:600;
+    }
+
+    .brand-highlight{
+      grid-column:span 2;
+      background:linear-gradient(135deg, rgba(216,123,31,0.18), rgba(255,255,255,0.03));
+      font-weight:800;
+      font-size:28px;
+      letter-spacing:-1px;
+      line-height:1;
+    }
+
+    .brand-highlight span{
+      color:var(--accent);
+    }
+
+    .panel-head{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:20px;
+      align-items:end;
+    }
+
+    .panel-head h3{
+      font-size:clamp(30px, 4vw, 52px);
+      line-height:0.95;
+      letter-spacing:-1.5px;
+    }
+
+    .panel-head p{
+      max-width:500px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:14px;
+    }
+
+    .awards-grid{
+      display:grid;
+      grid-template-columns:0.85fr 1.15fr;
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .awards-number{
+      border-radius:24px;
+      background:rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.06);
+      padding:24px;
+      display:flex;
+      align-items:flex-end;
+      min-height:240px;
+    }
+
+    .awards-number strong{
+      font-size:clamp(92px, 13vw, 180px);
+      line-height:0.8;
+      color:var(--accent);
+      letter-spacing:-5px;
+    }
+
+    .awards-list{
+      border-radius:24px;
+      background:rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.06);
+      padding:24px;
+    }
+
+    .awards-list h4{
+      font-size:clamp(28px, 4vw, 52px);
+      line-height:0.95;
+      letter-spacing:-1.3px;
+      margin-bottom:18px;
+    }
+
+    .awards-list h4 span{
+      color:var(--accent);
+    }
+
+    .award-item{
+      display:grid;
+      grid-template-columns:64px 1fr;
+      gap:12px;
+      padding:12px 0;
+      border-bottom:1px solid rgba(255,255,255,0.07);
+    }
+
+    .award-item:last-child{
+      border-bottom:none;
+    }
+
+    .award-item strong{
+      color:var(--accent);
+      font-size:18px;
+    }
+
+    .award-item span{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .footer{
+      max-width:1120px;
+      margin:18px auto 0;
+      padding-bottom:18px;
+    }
+
+    .footer-shell{
+      background:#f3efe5;
+      border-radius:34px;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .footer-card{
+      background:linear-gradient(145deg, #121212 0%, #080808 100%);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:28px;
+      padding:34px 32px 28px;
+      display:grid;
+      grid-template-columns:1.25fr 0.8fr 0.95fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .footer-brand{
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:-1px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand span,
+    .footer-label,
+    .footer-link:hover,
+    .social-link:hover{
+      color:var(--accent);
+    }
+
+    .footer-copy-text{
+      color:rgba(255,255,255,0.68);
+      max-width:360px;
+      line-height:1.8;
+      font-size:14px;
+      margin-bottom:22px;
+    }
+
+    .footer-social{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .social-link{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      color:#111;
+      font-size:13px;
+      font-weight:700;
+      transition:0.25s ease;
+    }
+
+    .social-link:hover{
+      transform:translateY(-2px);
+      background:var(--accent);
+    }
+
+    .footer-title{
+      font-size:15px;
+      margin-bottom:16px;
+      color:#f1ede7;
+    }
+
+    .footer-stack{
+      display:grid;
+      gap:14px;
+    }
+
+    .footer-link{
+      color:rgba(255,255,255,0.72);
+      transition:0.25s ease;
+      font-size:14px;
+    }
+
+    .footer-contact{
+      display:grid;
+      gap:14px;
+      color:rgba(255,255,255,0.72);
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .footer-bottom{
+      grid-column:1 / -1;
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding-top:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,0.5);
+      font-size:13px;
+    }
+
+    @media(max-width:980px){
+      .hero-grid,
+      .statement,
+      .stats-grid,
+      .awards-grid,
+      .footer-card,
+      .panel-head{
+        grid-template-columns:1fr;
+      }
+
+      .hero-left{
+        grid-template-columns:1fr;
+      }
+
+      .hero-title span{
+        text-align:left;
+      }
+
+      .brands-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+      .brand-highlight{
+        grid-column:span 2;
+      }
+    }
+
+    @media(max-width:640px){
+      .page{
+        padding:14px;
+      }
+
+      .nav{
+        top:14px;
+        border-radius:22px;
+        padding:14px 16px;
+      }
+
+      .brand{
+        font-size:20px;
+      }
+
+      .back-btn{
+        padding:10px 14px;
+        font-size:14px;
+      }
+
+      .about-shell,
+      .footer-shell{
+        padding:10px;
+      }
+
+      .about-shell{
+        border-radius:26px;
+      }
+
+      .hero-left,
+      .statement-index,
+      .statement-copy,
+      .stat-card,
+      .brands-panel,
+      .awards-panel,
+      .footer-card{
+        padding:20px;
+      }
+
+      .hero-title{
+        font-size:68px;
+        letter-spacing:-3px;
+      }
+
+      .stats-grid,
+      .brands-grid{
+        grid-template-columns:1fr;
+      }
+
+      .brand-highlight{
+        grid-column:span 1;
+        font-size:24px;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a href="index.html" class="brand">Creator's Hub <span>Studio</span></a>
+      <button class="back-btn" type="button" onclick="goBack()">&larr; Back</button>
+    </nav>
+
+    <main class="about-shell">
+      <section class="hero-grid">
+        <div class="hero-left">
+          <div>
+            <h1 class="hero-title">About <span>Us</span></h1>
+          </div>
+          <div class="hero-copy">
+            <div class="eyebrow">Creator's Hub Studio | Thane</div>
+            <p>
+              Creator's Hub Studio was built for photographers, filmmakers, content creators, brands, and artists who want
+              a clean, premium, and creator-friendly environment to bring ideas to life.
+            </p>
+            <p>
+              Based in Wagle Estate, Thane, the studio blends thoughtful lighting, flexible shooting zones, and a welcoming
+              atmosphere that supports both high-end commercial work and smaller personal projects.
+            </p>
+            <a href="#story" class="hero-card-button">Read Our Story</a>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <div class="side-card">
+            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80" alt="Studio interior at Creator's Hub Studio" />
+            <div class="side-overlay">
+              <strong>Modern Studio Interior</strong>
+              <span>Minimal, polished, and built to keep every shoot efficient and visually sharp.</span>
+            </div>
+          </div>
+          <div class="side-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80" alt="Creative production setup" />
+            <div class="side-overlay">
+              <strong>Creator-First Workflow</strong>
+              <span>Flexible setups for portraits, reels, lookbooks, product shoots, and branded content.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="statement" id="story">
+        <div class="statement-index">
+          <small>01</small>
+          <strong>5.0</strong>
+          <span>Rated studio experience designed around comfort, quality, and repeat visits.</span>
+        </div>
+        <div class="statement-copy">
+          <h2>
+            We bring together the perfect blend of <span class="accent">studio-ready lighting</span>,
+            <span class="accent">creator-friendly design</span>, and a <span class="accent">premium work atmosphere</span>
+            that helps every session feel easier, faster, and more polished.
+          </h2>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <div class="stat-card light">
+          <small>02 | Studio Focus</small>
+          <strong>24/7</strong>
+          <span>Open around the clock for creators and clients who need flexible schedules and uninterrupted production time.</span>
+        </div>
+        <div class="stat-card">
+          <small>03 | Sessions</small>
+          <strong>4+</strong>
+          <span>Core shoot categories supported regularly: portraits, fashion, creator content, and product photography.</span>
+        </div>
+        <div class="stat-card">
+          <small>04 | Experience</small>
+          <strong>1</strong>
+          <span>Dedicated Thane studio space built with a clear vision: better workflow, better visuals, and better comfort.</span>
+        </div>
+      </section>
+
+      <section class="brands-panel">
+        <div class="panel-head">
+          <h3>Built For Amazing Creative Work</h3>
+          <p>
+            From solo creators and models to small brands and commercial teams, the studio is designed to support a wide
+            range of visual production needs with a professional and approachable setup.
+          </p>
+        </div>
+        <div class="brands-grid">
+          <div class="brand-chip">Portrait Shoots</div>
+          <div class="brand-chip">Fashion Sessions</div>
+          <div class="brand-chip">Creator Reels</div>
+          <div class="brand-chip">Product Setups</div>
+          <div class="brand-chip">Lookbooks</div>
+          <div class="brand-highlight">WE HELP CREATE <span>STRONG VISUAL STORIES</span></div>
+          <div class="brand-chip">Commercial Frames</div>
+          <div class="brand-chip">Rental Enquiries</div>
+          <div class="brand-chip">Brand Campaigns</div>
+          <div class="brand-chip">Studio Content</div>
+        </div>
+      </section>
+
+      <section class="awards-panel">
+        <div class="panel-head">
+          <h3>Why The Studio Stands Out</h3>
+          <p>
+            The difference is not just the look of the space. It is the full experience: thoughtful planning, clean interiors,
+            adaptable setups, a calm working environment, and a studio layout that helps creators stay focused.
+          </p>
+        </div>
+
+        <div class="awards-grid">
+          <div class="awards-number">
+            <strong>260+</strong>
+          </div>
+
+          <div class="awards-list">
+            <h4><span>Reasons</span> Creators Choose Us</h4>
+
+            <div class="award-item">
+              <strong>01</strong>
+              <span>Clean and modern interiors that instantly elevate the tone of portraits, reels, and professional content.</span>
+            </div>
+            <div class="award-item">
+              <strong>02</strong>
+              <span>Lighting arrangements that make the studio suitable for both beginners learning the craft and professionals on schedule.</span>
+            </div>
+            <div class="award-item">
+              <strong>03</strong>
+              <span>A welcoming creator atmosphere where clients feel comfortable, supported, and confident throughout the session.</span>
+            </div>
+            <div class="award-item">
+              <strong>04</strong>
+              <span>Flexible use cases for portraits, fashion editorials, content shoots, small campaigns, and rental-based studio work.</span>
+            </div>
+            <div class="award-item">
+              <strong>05</strong>
+              <span>A prime Wagle Estate, Thane location that keeps the studio accessible while still feeling polished and private.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-shell">
+        <div class="footer-card">
+          <div>
+            <div class="footer-brand">Creator's Hub <span>Studio</span></div>
+            <p class="footer-copy-text">
+              A premium photography space in Thane for portraits, creator sessions, fashion work, and polished visual production.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-link" aria-label="Instagram">IG</a>
+              <a href="#" class="social-link" aria-label="Facebook">FB</a>
+              <a href="#" class="social-link" aria-label="YouTube">YT</a>
+              <a href="#" class="social-link" aria-label="WhatsApp">WA</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="footer-title">Studio Links</h3>
+            <div class="footer-stack">
+              <a href="index.html" class="footer-link">Home</a>
+              <a href="about.html" class="footer-link">About Us</a>
+              <a href="index.html#services" class="footer-link">Services</a>
+              <a href="index.html#contact" class="footer-link">Book a Session</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="footer-title">Contact</h3>
+            <div class="footer-contact">
+              <div>
+                <div class="footer-label">Address</div>
+                Mahada Plot No. 6, Chaitravan CHSL, Mahatma Fule Nagar, near RJ Thakur Marg, Wagle Estate, Thane, Maharashtra 400606
+              </div>
+              <div>
+                <div class="footer-label">Studio Hours</div>
+                Open 24 Hours
+              </div>
+              <div>
+                <div class="footer-label">Consultation</div>
+                Available for creator shoots, portraits, rentals, and commercial setups
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <span>Creator's Hub Studio &copy; 2026. Crafted for modern creators.</span>
+            <span>Photography Studio | Thane | Premium creator-first experience</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "index.html";
+      }
+    }
+  </script>
+</body>
+</html>
