@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Consultation | Creator's Hub Studio</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI',sans-serif;
+    }
+
+    :root{
+      --bg:#0a0f10;
+      --panel:#111718;
+      --panel-soft:#162122;
+      --surface:#eef2ee;
+      --surface-2:#dde7e2;
+      --line:rgba(255,255,255,0.08);
+      --line-dark:rgba(10,10,10,0.08);
+      --text:#f4f1eb;
+      --text-dark:#162020;
+      --muted:rgba(255,255,255,0.7);
+      --muted-dark:rgba(22,32,32,0.68);
+      --accent:#d6b06a;
+      --green:#0f4d46;
+      --green-2:#123f3a;
+      --shadow:0 24px 60px rgba(0,0,0,0.24);
+    }
+
+    html{scroll-behavior:smooth;}
+
+    body{
+      background:linear-gradient(180deg, #0d5a54 0%, #0a0f10 340px, #f5f2ec 340px, #f5f2ec 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    button,
+    input,
+    textarea{
+      font:inherit;
+    }
+
+    .page{
+      width:100%;
+    }
+
+    .nav{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 24px;
+      background:rgba(7,21,21,0.78);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(12px);
+    }
+
+    .brand{
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:-0.8px;
+      color:#fff;
+    }
+
+    .brand span{
+      color:var(--accent);
+    }
+
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.04);
+      color:#fff;
+      cursor:pointer;
+      transition:0.25s ease;
+    }
+
+    .back-btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(214,176,106,0.35);
+      color:var(--accent);
+    }
+
+    .hero{
+      width:min(100%, 1180px);
+      margin:0 auto;
+      padding:54px 16px 0;
+    }
+
+    .hero-title{
+      text-align:center;
+      font-size:clamp(34px, 5vw, 62px);
+      line-height:1;
+      letter-spacing:-1.8px;
+      margin-bottom:28px;
+      color:#fff;
+    }
+
+    .consult-card{
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      min-height:520px;
+    }
+
+    .consult-info{
+      background:#f4f1eb;
+      color:var(--text-dark);
+      padding:34px;
+    }
+
+    .consult-form{
+      background:#dfe9e4;
+      color:var(--text-dark);
+      padding:34px;
+    }
+
+    .consult-info h2{
+      font-size:clamp(28px, 3vw, 42px);
+      line-height:1.02;
+      letter-spacing:-1px;
+      margin-bottom:14px;
+      max-width:360px;
+    }
+
+    .consult-info p{
+      color:var(--muted-dark);
+      line-height:1.65;
+      font-size:14px;
+      max-width:430px;
+      margin-bottom:24px;
+    }
+
+    .steps{
+      display:grid;
+      gap:18px;
+    }
+
+    .step{
+      border-top:1px solid rgba(20,20,20,0.08);
+      padding-top:16px;
+    }
+
+    .step:first-child{
+      border-top:none;
+      padding-top:0;
+    }
+
+    .step strong{
+      display:block;
+      font-size:17px;
+      margin-bottom:4px;
+    }
+
+    .step span{
+      display:block;
+      color:var(--muted-dark);
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .consult-form h3{
+      font-size:32px;
+      line-height:1;
+      letter-spacing:-0.8px;
+      margin-bottom:18px;
+    }
+
+    .checkbox-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px 18px;
+      margin-bottom:22px;
+    }
+
+    .check{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted-dark);
+      font-size:14px;
+    }
+
+    .check input{
+      accent-color:var(--green);
+    }
+
+    .form-title{
+      font-size:18px;
+      margin-bottom:14px;
+      font-weight:700;
+    }
+
+    .field-group{
+      display:grid;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    .field input,
+    .field textarea{
+      width:100%;
+      border:none;
+      border-bottom:1px solid rgba(20,20,20,0.14);
+      background:transparent;
+      padding:10px 0;
+      color:var(--text-dark);
+      outline:none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder{
+      color:rgba(22,32,32,0.58);
+    }
+
+    .field textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+
+    .agree{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      color:var(--muted-dark);
+      font-size:13px;
+      line-height:1.5;
+      margin-bottom:20px;
+    }
+
+    .agree input{
+      margin-top:2px;
+      accent-color:var(--green);
+    }
+
+    .submit-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:170px;
+      padding:13px 22px;
+      border:none;
+      border-radius:999px;
+      background:var(--green);
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.25s ease;
+    }
+
+    .submit-btn:hover{
+      background:var(--green-2);
+      transform:translateY(-2px);
+    }
+
+    .faq-wrap{
+      width:min(100%, 1180px);
+      margin:0 auto;
+      padding:44px 16px 0;
+      color:var(--text-dark);
+    }
+
+    .faq-grid{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .faq-side{
+      display:grid;
+      gap:18px;
+    }
+
+    .faq-links{
+      background:#fff;
+      border:1px solid rgba(15,15,15,0.05);
+      border-radius:20px;
+      padding:20px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.06);
+    }
+
+    .faq-links h3{
+      font-size:16px;
+      margin-bottom:14px;
+    }
+
+    .faq-links a{
+      display:block;
+      padding:8px 0;
+      color:rgba(22,32,32,0.78);
+      font-size:14px;
+      border-bottom:1px solid rgba(15,15,15,0.06);
+    }
+
+    .faq-links a:last-child{
+      border-bottom:none;
+    }
+
+    .faq-promo{
+      min-height:240px;
+      border-radius:20px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 18px 40px rgba(0,0,0,0.08);
+    }
+
+    .faq-promo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .faq-promo::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(7,21,21,0.1), rgba(7,21,21,0.7));
+    }
+
+    .promo-copy{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      color:#fff;
+      z-index:1;
+    }
+
+    .promo-copy strong{
+      display:block;
+      font-size:28px;
+      line-height:0.95;
+      margin-bottom:6px;
+    }
+
+    .promo-copy span{
+      font-size:13px;
+      line-height:1.5;
+      color:rgba(255,255,255,0.82);
+    }
+
+    .faq-main h2{
+      font-size:clamp(30px, 4vw, 54px);
+      line-height:1;
+      letter-spacing:-1.3px;
+      margin-bottom:18px;
+    }
+
+    .faq-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .faq-item{
+      background:#fff;
+      border:1px solid rgba(15,15,15,0.05);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 12px 30px rgba(0,0,0,0.05);
+    }
+
+    .faq-question{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px 20px;
+      background:#fff;
+      border:none;
+      cursor:pointer;
+      text-align:left;
+      color:var(--text-dark);
+    }
+
+    .faq-question strong{
+      font-size:16px;
+      line-height:1.45;
+      font-weight:700;
+    }
+
+    .faq-icon{
+      flex:0 0 auto;
+      width:28px;
+      height:28px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#eef3ef;
+      color:var(--green);
+      font-size:18px;
+      transition:0.2s ease;
+    }
+
+    .faq-answer{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.28s ease;
+    }
+
+    .faq-answer p{
+      padding:0 20px 18px;
+      color:rgba(22,32,32,0.76);
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .faq-item.open .faq-answer{
+      max-height:220px;
+    }
+
+    .faq-item.open .faq-icon{
+      transform:rotate(45deg);
+      background:#dce8e3;
+    }
+
+    .footer{
+      width:min(100%, 1180px);
+      margin:0 auto;
+      padding:18px 0 16px;
+    }
+
+    .footer-shell{
+      padding:0 16px;
+    }
+
+    .footer-card{
+      background:linear-gradient(145deg, #0d4e48 0%, #071716 100%);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:22px;
+      padding:22px 20px 18px;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr 1fr;
+      gap:18px;
+      align-items:start;
+      box-shadow:var(--shadow);
+    }
+
+    .footer-brand{
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:-0.8px;
+      margin-bottom:10px;
+    }
+
+    .footer-brand span,
+    .footer-label,
+    .footer-link:hover,
+    .social-link:hover{
+      color:var(--accent);
+    }
+
+    .footer-copy-text{
+      color:rgba(255,255,255,0.72);
+      max-width:340px;
+      line-height:1.6;
+      font-size:13px;
+      margin-bottom:14px;
+    }
+
+    .footer-social{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .social-link{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      color:#111;
+      font-size:12px;
+      font-weight:700;
+      transition:0.25s ease;
+    }
+
+    .social-link:hover{
+      transform:translateY(-2px);
+      background:var(--accent);
+    }
+
+    .footer-title{
+      font-size:14px;
+      margin-bottom:10px;
+      color:#f1ede7;
+    }
+
+    .footer-stack{
+      display:grid;
+      gap:8px;
+    }
+
+    .footer-link{
+      color:rgba(255,255,255,0.76);
+      transition:0.25s ease;
+      font-size:13px;
+    }
+
+    .footer-contact{
+      display:grid;
+      gap:8px;
+      color:rgba(255,255,255,0.76);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .footer-bottom{
+      grid-column:1 / -1;
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding-top:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,0.52);
+      font-size:12px;
+    }
+
+    @media(max-width:980px){
+      body{
+        background:linear-gradient(180deg, #0d5a54 0%, #0a0f10 280px, #f5f2ec 280px, #f5f2ec 100%);
+      }
+
+      .consult-card,
+      .faq-grid,
+      .footer-card{
+        grid-template-columns:1fr;
+      }
+
+      .faq-grid{
+        gap:14px;
+      }
+
+      .faq-side{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:640px){
+      .nav{
+        padding:12px 14px;
+      }
+
+      .brand{
+        font-size:19px;
+      }
+
+      .back-btn{
+        padding:9px 13px;
+        font-size:13px;
+      }
+
+      .hero,
+      .faq-wrap{
+        padding-left:12px;
+        padding-right:12px;
+      }
+
+      .hero{
+        padding-top:34px;
+      }
+
+      .hero-title{
+        margin-bottom:18px;
+      }
+
+      .consult-info,
+      .consult-form{
+        padding:18px 16px;
+      }
+
+      .checkbox-grid,
+      .faq-side,
+      .footer-card{
+        grid-template-columns:1fr;
+      }
+
+      .footer-shell{
+        padding:0 12px;
+      }
+
+      .footer-card{
+        padding:18px 16px 14px;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a href="index.html" class="brand">Creator's Hub <span>Studio</span></a>
+      <button class="back-btn" type="button" onclick="goBack()">&larr; Back</button>
+    </nav>
+
+    <section class="hero">
+      <h1 class="hero-title">Book a Consultation</h1>
+
+      <div class="consult-card">
+        <div class="consult-info">
+          <h2>We're happy to plan your next studio session.</h2>
+          <p>
+            Whether you need portraits, a creator content setup, a product shoot, or a full rental enquiry,
+            our team can help you choose the right slot, setup, and session flow for your goals.
+          </p>
+
+          <div class="steps">
+            <div class="step">
+              <strong>1. Initial request</strong>
+              <span>Tell us what kind of shoot you are planning, your preferred date, and the type of visuals you want to create.</span>
+            </div>
+
+            <div class="step">
+              <strong>2. Shoot review</strong>
+              <span>We review your requirements, suggest the best studio use, and help shape the ideal setup for your session.</span>
+            </div>
+
+            <div class="step">
+              <strong>3. Scheduling</strong>
+              <span>We confirm availability, consultation timing, and practical details so your booking process stays smooth and clear.</span>
+            </div>
+
+            <div class="step">
+              <strong>4. Session guidance</strong>
+              <span>Before your shoot, we share final planning notes to make the studio day easier, faster, and more productive.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="consult-form">
+          <h3>How can we help?</h3>
+
+          <div class="checkbox-grid">
+            <label class="check"><input type="checkbox" /> Portrait consultation</label>
+            <label class="check"><input type="checkbox" /> Creator content shoot</label>
+            <label class="check"><input type="checkbox" /> Product photography</label>
+            <label class="check"><input type="checkbox" /> Studio rental enquiry</label>
+          </div>
+
+          <div class="form-title">Contact details</div>
+
+          <form>
+            <div class="field-group">
+              <div class="field">
+                <input type="text" placeholder="Name" />
+              </div>
+              <div class="field">
+                <input type="email" placeholder="E-mail address" />
+              </div>
+              <div class="field">
+                <input type="tel" placeholder="Phone number" />
+              </div>
+              <div class="field">
+                <textarea placeholder="Tell us about your shoot, preferred date, number of people, and the kind of setup you need"></textarea>
+              </div>
+            </div>
+
+            <label class="agree">
+              <input type="checkbox" />
+              <span>I agree to be contacted regarding my consultation request and studio booking enquiry.</span>
+            </label>
+
+            <button type="submit" class="submit-btn">Submit inquiry</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-wrap">
+      <div class="faq-grid">
+        <aside class="faq-side">
+          <div class="faq-links">
+            <h3>Quick topics</h3>
+            <a href="#faq">Booking process</a>
+            <a href="#faq">Studio timings</a>
+            <a href="#faq">Equipment and setup</a>
+            <a href="#faq">Rental questions</a>
+            <a href="#faq">Shoot preparation</a>
+            <a href="#faq">Pricing clarity</a>
+          </div>
+
+          <div class="faq-promo">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80" alt="Photography studio consultation" />
+            <div class="promo-copy">
+              <strong>Creator-ready space</strong>
+              <span>Professional support for portraits, reels, fashion, products, and branded studio content.</span>
+            </div>
+          </div>
+        </aside>
+
+        <div class="faq-main" id="faq">
+          <h2>Frequently asked questions</h2>
+
+          <div class="faq-list">
+            <div class="faq-item open">
+              <button class="faq-question" type="button">
+                <strong>How do I book a consultation for a shoot at Creator's Hub Studio?</strong>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  You can submit your details through the consultation form with your shoot type, preferred timing, and basic requirements.
+                  Once we review the request, we help guide you on the right studio use, session flow, and booking availability.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <strong>What types of shoots is the studio suitable for?</strong>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  The studio is well suited for portraits, fashion sessions, creator reels, product photography, branded content,
+                  test shoots, and flexible rental-based visual production.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <strong>Is the studio open 24 hours?</strong>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Yes, Creator's Hub Studio is listed as open 24 hours, which makes it helpful for creators and teams who need more flexible scheduling.
+                  Final booking timing should still be confirmed during consultation.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <strong>Can I enquire about studio rental without a full production team?</strong>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Yes. Individual creators, photographers, small teams, and first-time clients can all enquire about studio rental.
+                  The consultation helps clarify what kind of setup and support you may need.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <strong>What should I mention in my booking request?</strong>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  It helps to include your shoot type, preferred date, duration, number of people, expected output, and whether you need a portrait,
+                  creator, product, or commercial-style setup.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <strong>Is the studio beginner-friendly as well as professional?</strong>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Yes. The studio is designed to feel professional yet approachable, so both experienced photographers and newer creators can work comfortably
+                  in the space.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <strong>Where is Creator's Hub Studio located?</strong>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  The studio is located at Mahada Plot No. 6, Chaitravan CHSL, Mahatma Fule Nagar, near RJ Thakur Marg,
+                  Wagle Estate, Thane, Maharashtra 400606.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-shell">
+        <div class="footer-card">
+          <div>
+            <div class="footer-brand">Creator's Hub <span>Studio</span></div>
+            <p class="footer-copy-text">
+              A premium photography space in Thane for portraits, creator sessions, fashion work, and polished visual production.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-link" aria-label="Instagram">IG</a>
+              <a href="#" class="social-link" aria-label="Facebook">FB</a>
+              <a href="#" class="social-link" aria-label="YouTube">YT</a>
+              <a href="#" class="social-link" aria-label="WhatsApp">WA</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="footer-title">Studio Links</h3>
+            <div class="footer-stack">
+              <a href="index.html" class="footer-link">Home</a>
+              <a href="about.html" class="footer-link">About Us</a>
+              <a href="#faq" class="footer-link">FAQs</a>
+              <a href="#" class="footer-link">Book a Session</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="footer-title">Contact</h3>
+            <div class="footer-contact">
+              <div>
+                <div class="footer-label">Address</div>
+                Mahada Plot No. 6, Chaitravan CHSL, Mahatma Fule Nagar, near RJ Thakur Marg, Wagle Estate, Thane, Maharashtra 400606
+              </div>
+              <div>
+                <div class="footer-label">Studio Hours</div>
+                Open 24 Hours
+              </div>
+              <div>
+                <div class="footer-label">Consultation</div>
+                Available for creator shoots, portraits, rentals, and commercial setups
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <span>Creator's Hub Studio &copy; 2026. Crafted for modern creators.</span>
+            <span>Photography Studio | Thane | Premium creator-first experience</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "index.html";
+      }
+    }
+
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+
+      button.addEventListener("click", () => {
+        const isOpen = item.classList.contains("open");
+
+        faqItems.forEach((faq) => faq.classList.remove("open"));
+
+        if (!isOpen) {
+          item.classList.add("open");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
