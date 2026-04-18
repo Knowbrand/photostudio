@@ -369,43 +369,52 @@
     }
 
     .section{
-      padding:56px 18px 0;
+      padding:46px 18px 0;
     }
 
     .section-grid-head{
       display:grid;
-      grid-template-columns:0.95fr 1.05fr;
-      gap:24px;
+      grid-template-columns:0.9fr 1.1fr;
+      gap:20px;
       align-items:end;
-      margin-bottom:24px;
+      margin-bottom:18px;
     }
 
     .section-grid-head h2{
-      font-size:clamp(32px, 4vw, 54px);
-      line-height:0.95;
-      letter-spacing:-1.6px;
+      font-size:clamp(30px, 4vw, 50px);
+      line-height:0.97;
+      letter-spacing:-1.4px;
     }
 
     .section-grid-head p{
       color:var(--muted);
-      line-height:1.85;
-      max-width:540px;
+      line-height:1.7;
+      max-width:520px;
+      font-size:15px;
     }
 
     .portfolio-layout{
       display:grid;
-      grid-template-columns:1.1fr 0.9fr;
-      gap:18px;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:16px;
+      align-items:stretch;
     }
 
     .portfolio-card{
-      min-height:430px;
       background:var(--surface);
       border:1px solid var(--line);
-      border-radius:30px;
+      border-radius:28px;
       overflow:hidden;
       position:relative;
       box-shadow:var(--shadow);
+    }
+
+    .portfolio-card.featured{
+      aspect-ratio:1.3/1;
+    }
+
+    .portfolio-card.compact{
+      aspect-ratio:1.55/1;
     }
 
     .portfolio-card img{
@@ -420,34 +429,35 @@
     .portfolio-stack{
       display:grid;
       grid-template-rows:1fr 1fr;
-      gap:18px;
+      gap:16px;
     }
 
     .overlay{
       position:absolute;
-      left:18px;
-      right:18px;
-      bottom:18px;
+      left:14px;
+      right:14px;
+      bottom:14px;
       background:rgba(10,10,10,0.68);
       border:1px solid rgba(255,255,255,0.08);
       border-radius:18px;
-      padding:14px 16px;
+      padding:12px 14px;
       backdrop-filter:blur(10px);
     }
 
     .overlay strong{
       display:block;
-      font-size:16px;
+      font-size:15px;
       margin-bottom:3px;
     }
 
     .overlay span{
       color:rgba(255,255,255,0.72);
-      font-size:13px;
+      font-size:12px;
+      line-height:1.45;
     }
 
     .services-card{
-      margin-top:24px;
+      margin-top:22px;
       background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
       border:1px solid var(--line);
       border-radius:30px;
@@ -609,40 +619,105 @@
       padding:0 18px 18px;
     }
 
-    .footer-card{
-      background:#050505;
-      border:1px solid rgba(255,255,255,0.05);
-      border-radius:30px;
-      padding:26px;
-      display:grid;
-      grid-template-columns:1fr auto auto;
-      gap:24px;
-      align-items:center;
+    .footer-shell{
+      background:#f3efe5;
+      border-radius:34px;
+      padding:12px;
       box-shadow:var(--shadow);
+    }
+
+    .footer-card{
+      background:linear-gradient(145deg, #121212 0%, #080808 100%);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:28px;
+      padding:34px 32px 28px;
+      display:grid;
+      grid-template-columns:1.25fr 0.8fr 0.95fr;
+      gap:28px;
+      align-items:start;
     }
 
     .footer-brand{
       font-size:28px;
       font-weight:700;
       letter-spacing:-1px;
+      margin-bottom:16px;
     }
 
-    .footer-brand span{
+    .footer-brand span,
+    .footer-label,
+    .footer-link:hover,
+    .social-link:hover{
       color:var(--accent);
     }
 
-    .footer-links{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      color:rgba(255,255,255,0.82);
-      font-weight:600;
+    .footer-copy-text{
+      color:rgba(255,255,255,0.68);
+      max-width:360px;
+      line-height:1.8;
+      font-size:14px;
+      margin-bottom:22px;
     }
 
-    .footer-copy{
-      color:rgba(255,255,255,0.55);
+    .footer-social{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .social-link{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      color:#111;
       font-size:13px;
-      text-align:right;
+      font-weight:700;
+      transition:0.25s ease;
+    }
+
+    .social-link:hover{
+      transform:translateY(-2px);
+      background:var(--accent);
+    }
+
+    .footer-title{
+      font-size:15px;
+      margin-bottom:16px;
+      color:#f1ede7;
+    }
+
+    .footer-stack{
+      display:grid;
+      gap:14px;
+    }
+
+    .footer-link{
+      color:rgba(255,255,255,0.72);
+      transition:0.25s ease;
+      font-size:14px;
+    }
+
+    .footer-contact{
+      display:grid;
+      gap:14px;
+      color:rgba(255,255,255,0.72);
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .footer-bottom{
+      grid-column:1 / -1;
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding-top:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,0.5);
+      font-size:13px;
     }
 
     .reveal{
@@ -812,8 +887,13 @@
         grid-template-rows:auto;
       }
 
-      .footer-copy{
-        text-align:left;
+      .portfolio-card.featured,
+      .portfolio-card.compact{
+        aspect-ratio:1.25/1;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
       }
     }
 
@@ -855,6 +935,15 @@
       .hero-main-image{
         height:220px;
       }
+
+      .portfolio-card.featured,
+      .portfolio-card.compact{
+        aspect-ratio:1.1/1;
+      }
+
+      .footer-shell{
+        padding:10px;
+      }
     }
   </style>
 </head>
@@ -884,7 +973,7 @@
 
     <div class="mobile-topbar">
       <div class="mobile-brand">Creator's Hub <span>Studio</span></div>
-      <button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu">☰</button>
+      <button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu">=</button>
     </div>
 
     <div class="mobile-menu-panel" id="mobileMenuPanel">
@@ -900,10 +989,10 @@
       <div class="hero-card reveal">
         <div class="hero-inner">
           <div class="hero-copy">
-            <div class="eyebrow">Photography Studio • Open 24 Hours • Wagle Estate, Thane</div>
+            <div class="eyebrow">Photography Studio | Open 24 Hours | Wagle Estate, Thane</div>
             <h1>A Modern Studio Built For Creators, Shoots, And Stunning Visuals.</h1>
             <p>
-              Creator’s Hub Studio offers a clean, professional photography space in Thane with thoughtful lighting setups,
+              Creator's Hub Studio offers a clean, professional photography space in Thane with thoughtful lighting setups,
               creator-friendly workflow, and a premium experience for both professionals and beginners.
             </p>
 
@@ -914,7 +1003,7 @@
 
             <div class="hero-stats">
               <div class="hero-stat">
-                <strong>5.0★</strong>
+                <strong>5.0 Star</strong>
                 <span>Google Rating</span>
               </div>
               <div class="hero-stat">
@@ -972,14 +1061,13 @@
       <div class="section-grid-head reveal">
         <h2>Designed For Smooth, Professional Studio Work.</h2>
         <p>
-          From portraits and creator shoots to commercial setups, Creator’s Hub Studio is designed to make every session
-          feel more efficient, comfortable, and visually polished. The space reflects a strong understanding of lighting,
-          workflow, and what creators actually need during production.
+          From portraits and creator shoots to commercial setups, Creator's Hub Studio is designed to make every session
+          feel efficient, comfortable, and visually polished.
         </p>
       </div>
 
       <div class="portfolio-layout reveal">
-        <a href="#" class="portfolio-card">
+        <a href="#" class="portfolio-card featured">
           <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=80" alt="Studio interior" />
           <div class="overlay">
             <strong>Studio Interior</strong>
@@ -988,7 +1076,7 @@
         </a>
 
         <div class="portfolio-stack">
-          <a href="#" class="portfolio-card">
+          <a href="#" class="portfolio-card compact">
             <img src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?auto=format&fit=crop&w=1400&q=80" alt="Lighting setup" />
             <div class="overlay">
               <strong>Lighting Setup</strong>
@@ -996,7 +1084,7 @@
             </div>
           </a>
 
-          <a href="#" class="portfolio-card">
+          <a href="#" class="portfolio-card compact">
             <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80" alt="Creator session" />
             <div class="overlay">
               <strong>Creator Sessions</strong>
@@ -1011,26 +1099,26 @@
           <div class="eyebrow">Studio Highlights</div>
           <h2>Made For Creators, Brands, And Photo Professionals.</h2>
           <p>
-            Creator’s Hub Studio is built as a flexible photography space for portrait sessions,
+            Creator's Hub Studio is built as a flexible photography space for portrait sessions,
             content creation, commercial work, and studio rental enquiries.
           </p>
 
           <div class="service-list">
             <a href="#" class="service-item">
-              <strong>Portrait & Fashion Shoots</strong>
-              <span>→</span>
+              <strong>Portrait &amp; Fashion Shoots</strong>
+              <span>&rarr;</span>
             </a>
             <a href="#" class="service-item">
               <strong>Creator Content Sessions</strong>
-              <span>→</span>
+              <span>&rarr;</span>
             </a>
             <a href="#" class="service-item">
               <strong>Product Photography Setup</strong>
-              <span>→</span>
+              <span>&rarr;</span>
             </a>
             <a href="#" class="service-item">
               <strong>Studio Rental Enquiries</strong>
-              <span>→</span>
+              <span>&rarr;</span>
             </a>
           </div>
         </div>
@@ -1042,14 +1130,14 @@
     </section>
 
     <section class="headline-strip reveal" id="about">
-      <h2>Create <span>•</span> Shoot <span>•</span> Capture</h2>
+      <h2>Create <span>|</span> Shoot <span>|</span> Capture</h2>
     </section>
 
     <section class="testimonials">
       <div class="section-grid-head reveal" style="margin-bottom:18px;">
         <h2>Why Creators Keep Coming Back</h2>
         <p>
-          Clients appreciate the studio’s modern look, clean environment, strong lighting arrangements,
+          Clients appreciate the studio's modern look, clean environment, strong lighting arrangements,
           and supportive atmosphere. Whether you are experienced or just getting started, the studio is
           built to make the process easier.
         </p>
@@ -1058,9 +1146,9 @@
       <div class="testimonial-grid reveal">
         <div class="testimonial">
           <p>
-            “5 stars for Creators Hub! The space is modern, clean, and features great lighting setups.
-            It’s clear they’ve put a lot of thought into the creator’s workflow. Whether you’re a professional
-            or just starting out, this is the place to be. I’ll definitely be coming back for future shoots.”
+            "5 stars for Creators Hub! The space is modern, clean, and features great lighting setups.
+            It's clear they've put a lot of thought into the creator's workflow. Whether you're a professional
+            or just starting out, this is the place to be. I'll definitely be coming back for future shoots."
           </p>
           <strong>Siddesh Mohite</strong>
           <span>Google Review</span>
@@ -1068,8 +1156,8 @@
 
         <div class="testimonial">
           <p>
-            “I really enjoyed the work at this studio. The staff is very helpful and nice, with a great nature.
-            All the services are top-notch. Highly recommended!”
+            "I really enjoyed the work at this studio. The staff is very helpful and nice, with a great nature.
+            All the services are top-notch. Highly recommended!"
           </p>
           <strong>MS Studio</strong>
           <span>Google Review</span>
@@ -1080,7 +1168,7 @@
     <section class="cta" id="contact">
       <div class="cta-card reveal">
         <div>
-          <h2>Ready To Shoot At Creator’s Hub Studio?</h2>
+          <h2>Ready To Shoot At Creator's Hub Studio?</h2>
           <p>
             Visit the studio in Wagle Estate, Thane and book your next photography, creator, or commercial session
             in a clean, thoughtfully designed space.
@@ -1091,18 +1179,53 @@
     </section>
 
     <footer class="footer">
-      <div class="footer-card reveal">
-        <div class="footer-brand">Creator's Hub <span>Studio</span></div>
+      <div class="footer-shell reveal">
+        <div class="footer-card">
+          <div>
+            <div class="footer-brand">Creator's Hub <span>Studio</span></div>
+            <p class="footer-copy-text">
+              A premium photography space in Thane for portraits, creator sessions, fashion work, and polished visual production.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-link" aria-label="Instagram">IG</a>
+              <a href="#" class="social-link" aria-label="Facebook">FB</a>
+              <a href="#" class="social-link" aria-label="YouTube">YT</a>
+              <a href="#" class="social-link" aria-label="WhatsApp">WA</a>
+            </div>
+          </div>
 
-        <div class="footer-links" id="blogs">
-          <a href="#">About Us</a>
-          <a href="#">Services</a>
-          <a href="#">Blogs</a>
-          <a href="#">Contact</a>
-        </div>
+          <div>
+            <h3 class="footer-title">Studio Links</h3>
+            <div class="footer-stack" id="blogs">
+              <a href="#about" class="footer-link">About Us</a>
+              <a href="#services" class="footer-link">Services</a>
+              <a href="#portfolio" class="footer-link">Studio View</a>
+              <a href="#contact" class="footer-link">Book a Session</a>
+            </div>
+          </div>
 
-        <div class="footer-copy">
-          Mahada Plot No. 6, Chaitravan CHSL, Mahatma Fule Nagar, near RJ Thakur Marg, Wagle Estate, Thane, Maharashtra 400606
+          <div>
+            <h3 class="footer-title">Contact</h3>
+            <div class="footer-contact">
+              <div>
+                <div class="footer-label">Address</div>
+                Mahada Plot No. 6, Chaitravan CHSL, Mahatma Fule Nagar, near RJ Thakur Marg, Wagle Estate, Thane, Maharashtra 400606
+              </div>
+              <div>
+                <div class="footer-label">Studio Hours</div>
+                Open 24 Hours
+              </div>
+              <div>
+                <div class="footer-label">Consultation</div>
+                Available for creator shoots, portraits, rentals, and commercial setups
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <span>Creator's Hub Studio &copy; 2026. Crafted for modern creators.</span>
+            <span>Photography Studio | Thane | Premium creator-first experience</span>
+          </div>
         </div>
       </div>
     </footer>
@@ -1127,13 +1250,13 @@
     if (mobileMenuBtn && mobileMenuPanel) {
       mobileMenuBtn.addEventListener("click", () => {
         mobileMenuPanel.classList.toggle("open");
-        mobileMenuBtn.textContent = mobileMenuPanel.classList.contains("open") ? "×" : "☰";
+        mobileMenuBtn.textContent = mobileMenuPanel.classList.contains("open") ? "X" : "=";
       });
 
       mobileMenuPanel.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
           mobileMenuPanel.classList.remove("open");
-          mobileMenuBtn.textContent = "☰";
+          mobileMenuBtn.textContent = "=";
         });
       });
     }
