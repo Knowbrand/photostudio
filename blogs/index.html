@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Journal | Creator's Hub Studio</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI',sans-serif;
+    }
+
+    :root{
+      --bg:#0a0a0a;
+      --surface:#121212;
+      --surface-2:#181818;
+      --line:rgba(255,255,255,0.08);
+      --text:#f8f8f8;
+      --muted:rgba(255,255,255,0.7);
+      --accent:#d6b06a;
+      --light:#f4efe8;
+      --shadow:0 24px 70px rgba(0,0,0,0.28);
+    }
+
+    html{scroll-behavior:smooth;}
+
+    body{
+      background:
+        radial-gradient(circle at top, rgba(214,176,106,0.08), transparent 22%),
+        linear-gradient(180deg, #111 0%, #080808 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      width:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .page{
+      width:100%;
+    }
+
+    .nav{
+      width:100%;
+      padding:14px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      background:rgba(8,8,8,0.92);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(12px);
+    }
+
+    .brand{
+      font-size:24px;
+      font-weight:700;
+      letter-spacing:-0.9px;
+    }
+
+    .brand span{
+      color:var(--accent);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      padding:10px 14px;
+      border-radius:999px;
+      color:rgba(255,255,255,0.82);
+      font-size:14px;
+      transition:0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      background:rgba(214,176,106,0.12);
+      color:var(--accent);
+    }
+
+    .hero{
+      width:min(100%, 1180px);
+      margin:0 auto;
+      padding:26px 16px 0;
+    }
+
+    .hero-feature{
+      display:grid;
+      grid-template-columns:0.92fr 1.08fr;
+      gap:0;
+      min-height:430px;
+      background:#1b1b1b;
+      border:1px solid var(--line);
+      border-radius:26px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-copy-wrap{
+      background:#232326;
+      padding:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-copy{
+      background:var(--light);
+      color:#161616;
+      padding:34px;
+      max-width:430px;
+      width:100%;
+      box-shadow:0 18px 40px rgba(0,0,0,0.12);
+    }
+
+    .meta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      color:#7e7468;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1.8px;
+      margin-bottom:16px;
+    }
+
+    .hero-copy h1{
+      font-size:clamp(30px, 4vw, 54px);
+      line-height:0.98;
+      letter-spacing:-1.4px;
+      margin-bottom:14px;
+    }
+
+    .hero-copy p{
+      color:#645c52;
+      line-height:1.75;
+      font-size:15px;
+      margin-bottom:18px;
+    }
+
+    .read-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#111;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .read-link span{
+      color:var(--accent);
+    }
+
+    .hero-image{
+      position:relative;
+      min-height:430px;
+    }
+
+    .hero-image img{
+      height:100%;
+    }
+
+    .section{
+      width:min(100%, 1180px);
+      margin:0 auto;
+      padding:44px 16px 0;
+    }
+
+    .section-head{
+      margin-bottom:20px;
+    }
+
+    .eyebrow{
+      color:rgba(255,255,255,0.54);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:11px;
+      margin-bottom:10px;
+    }
+
+    .section-head h2{
+      font-size:clamp(32px, 4vw, 56px);
+      line-height:1;
+      letter-spacing:-1.3px;
+    }
+
+    .blog-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .blog-card{
+      display:block;
+      background:transparent;
+    }
+
+    .blog-card:hover .card-image img{
+      transform:scale(1.04);
+    }
+
+    .card-image{
+      height:250px;
+      border-radius:22px;
+      overflow:hidden;
+      margin-bottom:0;
+      box-shadow:var(--shadow);
+      position:relative;
+      background:#202020;
+    }
+
+    .card-image img{
+      height:100%;
+      transition:transform 0.45s ease;
+    }
+
+    .card-copy{
+      width:calc(100% - 34px);
+      background:#fff;
+      color:#161616;
+      padding:20px 18px 18px;
+      margin-top:-26px;
+      position:relative;
+      z-index:2;
+      box-shadow:0 16px 34px rgba(0,0,0,0.08);
+    }
+
+    .card-copy .meta{
+      color:#81796d;
+      margin-bottom:10px;
+    }
+
+    .card-copy h3{
+      font-size:30px;
+      line-height:0.98;
+      letter-spacing:-1px;
+      margin-bottom:10px;
+    }
+
+    .card-copy p{
+      color:#60584f;
+      line-height:1.7;
+      font-size:14px;
+      margin-bottom:12px;
+    }
+
+    .more-posts{
+      padding:22px 0 0;
+      text-align:center;
+    }
+
+    .more-posts a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:160px;
+      padding:13px 20px;
+      border-radius:999px;
+      background:var(--accent);
+      color:#111;
+      font-weight:700;
+      box-shadow:var(--shadow);
+    }
+
+    .podcast-strip{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .podcast-feature{
+      background:linear-gradient(140deg, rgba(214,176,106,0.16), rgba(255,255,255,0.03)), #161616;
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+
+    .podcast-feature h3{
+      font-size:clamp(34px, 4vw, 58px);
+      line-height:0.96;
+      letter-spacing:-1.5px;
+      margin-bottom:12px;
+      max-width:520px;
+    }
+
+    .podcast-feature p{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:560px;
+      margin-bottom:18px;
+    }
+
+    .podcast-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .podcast-item{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .podcast-item strong{
+      display:block;
+      font-size:19px;
+      margin-bottom:6px;
+    }
+
+    .podcast-item span{
+      display:block;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:14px;
+      margin-bottom:10px;
+    }
+
+    .footer{
+      width:min(100%, 1180px);
+      margin:0 auto;
+      padding:22px 0 18px;
+    }
+
+    .footer-shell{
+      padding:0 16px;
+    }
+
+    .footer-card{
+      background:linear-gradient(145deg, #121212 0%, #080808 100%);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:24px;
+      padding:24px 22px 18px;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr 1fr;
+      gap:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .footer-brand{
+      font-size:24px;
+      font-weight:700;
+      letter-spacing:-0.8px;
+      margin-bottom:12px;
+    }
+
+    .footer-brand span,
+    .footer-label,
+    .footer-link:hover,
+    .social-link:hover{
+      color:var(--accent);
+    }
+
+    .footer-copy-text{
+      color:rgba(255,255,255,0.68);
+      max-width:340px;
+      line-height:1.6;
+      font-size:13px;
+      margin-bottom:14px;
+    }
+
+    .footer-social{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .social-link{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      color:#111;
+      font-size:12px;
+      font-weight:700;
+      transition:0.25s ease;
+    }
+
+    .social-link:hover{
+      transform:translateY(-2px);
+      background:var(--accent);
+    }
+
+    .footer-title{
+      font-size:14px;
+      margin-bottom:10px;
+      color:#f1ede7;
+    }
+
+    .footer-stack{
+      display:grid;
+      gap:8px;
+    }
+
+    .footer-link{
+      color:rgba(255,255,255,0.76);
+      transition:0.25s ease;
+      font-size:13px;
+    }
+
+    .footer-contact{
+      display:grid;
+      gap:8px;
+      color:rgba(255,255,255,0.76);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .footer-bottom{
+      grid-column:1 / -1;
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding-top:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,0.5);
+      font-size:12px;
+    }
+
+    @media(max-width:980px){
+      .hero-feature,
+      .podcast-strip,
+      .footer-card{
+        grid-template-columns:1fr;
+      }
+
+      .blog-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .hero-copy-wrap{
+        padding:22px;
+      }
+    }
+
+    @media(max-width:640px){
+      .nav{
+        padding:12px 14px;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .brand{
+        font-size:20px;
+      }
+
+      .hero,
+      .section{
+        padding-left:12px;
+        padding-right:12px;
+      }
+
+      .hero{
+        padding-top:16px;
+      }
+
+      .hero-copy,
+      .podcast-feature{
+        padding:18px;
+      }
+
+      .hero-copy h1,
+      .card-copy h3{
+        font-size:26px;
+      }
+
+      .blog-grid{
+        grid-template-columns:1fr;
+      }
+
+      .card-image{
+        height:220px;
+      }
+
+      .footer-shell{
+        padding:0 12px;
+      }
+
+      .footer-card{
+        grid-template-columns:1fr;
+        padding:18px 16px 14px;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a href="index.html" class="brand">Creator's Hub <span>Studio</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="consultation.html">Consultation</a>
+        <a href="blogs.html" class="active">Blogs</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <a href="blog-podcast-studio-conversations.html" class="hero-feature">
+        <div class="hero-copy-wrap">
+          <div class="hero-copy">
+            <div class="meta">
+              <span>Featured</span>
+              <span>Studio Podcast</span>
+              <span>Creator Journal</span>
+            </div>
+            <h1>Inside The Studio Podcast: Real Conversations Behind Better Shoots</h1>
+            <p>
+              A closer look at how creators, photographers, and studio teams prepare for clean visuals,
+              stronger storytelling, and a smoother shooting workflow inside Creator's Hub Studio.
+            </p>
+            <div class="read-link">Read Story <span>&rarr;</span></div>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80" alt="Photography studio feature article" />
+        </div>
+      </a>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="eyebrow">Browse And Read The Latest Studio Stories</div>
+        <h2>Latest Stories</h2>
+      </div>
+
+      <div class="blog-grid">
+        <a href="blog-portrait-lighting-guide.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80" alt="Portrait lighting guide" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Portraits</span>
+              <span>Lighting</span>
+            </div>
+            <h3>How To Plan Portrait Lighting Before You Enter The Studio</h3>
+            <p>
+              A practical guide to choosing mood, light direction, outfit tones, and background style before a portrait session begins.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-podcast-camera-setup.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80" alt="Podcast camera setup" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Podcast</span>
+              <span>Studio Setup</span>
+            </div>
+            <h3>The Best Camera Setup Ideas For A Clean Studio Podcast Look</h3>
+            <p>
+              Learn how to frame speakers, manage depth, and build a polished podcast visual style inside a flexible photography studio.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-creator-reels-workflow.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Creator reels workflow" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Creators</span>
+              <span>Content</span>
+            </div>
+            <h3>Building A Faster Reels Workflow During A Studio Content Day</h3>
+            <p>
+              From shot sequencing to quick scene changes, this post breaks down how creators can get more usable footage in less time.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-product-photography-basics.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1200&q=80" alt="Product photography basics" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Products</span>
+              <span>Commercial</span>
+            </div>
+            <h3>Small Product Photography Tips That Make A Big Difference On Set</h3>
+            <p>
+              A studio-first look at reflections, tabletop styling, lens choices, and simple scene upgrades for better product frames.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-fashion-shoot-prep.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80" alt="Fashion shoot prep" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Fashion</span>
+              <span>Editorial</span>
+            </div>
+            <h3>What To Prepare Before A Fashion Shoot At A Photography Studio</h3>
+            <p>
+              Moodboards, styling notes, pose references, and timing plans that help fashion sessions feel structured and editorial.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-podcast-sound-visual-balance.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1200&q=80" alt="Podcast visual balance" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Podcast</span>
+              <span>Production</span>
+            </div>
+            <h3>Balancing Sound And Visual Presence In A Studio Podcast Session</h3>
+            <p>
+              A useful breakdown of how to think about speaker spacing, visual rhythm, set mood, and on-camera energy.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-beginner-studio-session.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="Beginner studio session" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Beginners</span>
+              <span>Studio Guide</span>
+            </div>
+            <h3>Your First Studio Session: What To Expect And How To Feel Ready</h3>
+            <p>
+              A calm introduction for first-time clients who want to understand studio flow, planning, and how sessions usually unfold.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-brand-campaign-shoots.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80" alt="Brand campaign shoots" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Brands</span>
+              <span>Campaigns</span>
+            </div>
+            <h3>How Small Brand Campaigns Can Look Premium Inside A Compact Studio</h3>
+            <p>
+              Smart planning, lighting discipline, and scene control can help even modest productions create stronger commercial visuals.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+
+        <a href="blog-studio-rental-checklist.html" class="blog-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80" alt="Studio rental checklist" />
+          </div>
+          <div class="card-copy">
+            <div class="meta">
+              <span>Rental</span>
+              <span>Checklist</span>
+            </div>
+            <h3>The Studio Rental Checklist Every Photographer Should Review First</h3>
+            <p>
+              A simple pre-booking checklist covering timing, gear, client comfort, shot goals, and workflow expectations.
+            </p>
+            <div class="read-link">Read More <span>&rarr;</span></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="more-posts">
+        <a href="#">More Posts</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="eyebrow">Listen, Learn, And Create Better</div>
+        <h2>Studio Podcast Picks</h2>
+      </div>
+
+      <div class="podcast-strip">
+        <a href="blog-podcast-creator-mindset.html" class="podcast-feature">
+          <div class="meta">
+            <span>Podcast Feature</span>
+            <span>Creator Mindset</span>
+          </div>
+          <h3>The Studio Podcast Episodes Every Visual Creator Should Start With</h3>
+          <p>
+            From creative confidence and shoot planning to speaking on camera and building a studio rhythm,
+            these episodes are designed for photographers, hosts, creators, and brands using studio spaces more intentionally.
+          </p>
+          <div class="read-link">Open Feature <span>&rarr;</span></div>
+        </a>
+
+        <div class="podcast-list">
+          <a href="blog-podcast-guest-framing.html" class="podcast-item">
+            <strong>How To Frame Two Guests Beautifully In A Studio Podcast</strong>
+            <span>Blocking, composition, eye-lines, and clean set balance for dual-speaker episodes.</span>
+            <div class="read-link">Read Episode Notes <span>&rarr;</span></div>
+          </a>
+
+          <a href="blog-podcast-brand-look.html" class="podcast-item">
+            <strong>Creating A Brand Look For Your Podcast Without Overdesigning The Set</strong>
+            <span>Use color, texture, light, and spacing to build identity without cluttering the scene.</span>
+            <div class="read-link">Read Episode Notes <span>&rarr;</span></div>
+          </a>
+
+          <a href="blog-podcast-shoot-day-checklist.html" class="podcast-item">
+            <strong>The Shoot-Day Checklist For Recording A Smooth Studio Podcast</strong>
+            <span>A practical list for creators who want fewer interruptions and stronger visual consistency.</span>
+            <div class="read-link">Read Episode Notes <span>&rarr;</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-shell">
+        <div class="footer-card">
+          <div>
+            <div class="footer-brand">Creator's Hub <span>Studio</span></div>
+            <p class="footer-copy-text">
+              A premium photography space in Thane for portraits, creator sessions, fashion work, podcast production, and polished visual storytelling.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-link" aria-label="Instagram">IG</a>
+              <a href="#" class="social-link" aria-label="Facebook">FB</a>
+              <a href="#" class="social-link" aria-label="YouTube">YT</a>
+              <a href="#" class="social-link" aria-label="WhatsApp">WA</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="footer-title">Studio Links</h3>
+            <div class="footer-stack">
+              <a href="index.html" class="footer-link">Home</a>
+              <a href="about.html" class="footer-link">About Us</a>
+              <a href="consultation.html" class="footer-link">Consultation</a>
+              <a href="blogs.html" class="footer-link">Blogs</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="footer-title">Contact</h3>
+            <div class="footer-contact">
+              <div>
+                <div class="footer-label">Address</div>
+                Mahada Plot No. 6, Chaitravan CHSL, Mahatma Fule Nagar, near RJ Thakur Marg, Wagle Estate, Thane, Maharashtra 400606
+              </div>
+              <div>
+                <div class="footer-label">Studio Hours</div>
+                Open 24 Hours
+              </div>
+              <div>
+                <div class="footer-label">Focus</div>
+                Portraits, creator shoots, product photography, podcast visuals, and studio rentals
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <span>Creator's Hub Studio &copy; 2026. Crafted for modern creators.</span>
+            <span>Photography Studio | Thane | Premium creator-first experience</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
